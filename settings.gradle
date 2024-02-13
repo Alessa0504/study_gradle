@@ -1,0 +1,6 @@
+rootProject.name = 'root'
+include('subproject01')  //include是调用的方法，方法参数()不引起歧义时可省略
+include ':subproject02'   //:是相对于当前根工程即root，默认可不加
+include 'subproject03'
+//只有被settings中include引入的project能被识别
+

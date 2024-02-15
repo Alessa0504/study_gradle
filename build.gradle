@@ -121,3 +121,8 @@ tasks.named('task0_new') { dependsOn('task2_new', 'task3_new') }
  * > Task :task0_new
  * I'm task0_new
  */
+
+//文件
+def configFile = file('src/conf.xml')   //相对路径，也可以用绝对路径如'D:\\conf.xml'
+//file('src/conf.xml')等同于java写法 new File('src/conf.xml')
+configFile.createNewFile()   //创建文件

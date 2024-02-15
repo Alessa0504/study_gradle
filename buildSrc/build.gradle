@@ -1,0 +1,22 @@
+apply plugin: 'groovy'  //必须，因为这里使用groovy写的插件代码
+apply plugin: 'maven-publish'
+
+dependencies {
+    implementation gradleApi()  //必须 gradle sdk
+    implementation localGroovy()  //必须 groovy sdk
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()  //必须
+}
+
+//项目入口设置为src/main/groovy
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+    }
+}

@@ -17,6 +17,9 @@ task taskVersion {
     }
 }
 
+//应用buildSrc目录下自定义插件
+apply plugin: 'testPluginId'   //*这里写的是插件id即resources/META-INF/gradle-plugins/testPluginId.properties文件的.properties前缀
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 

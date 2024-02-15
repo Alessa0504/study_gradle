@@ -20,6 +20,15 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    //本地依赖：通过files
+    implementation files('lib/mysql.jar', 'lib/log4j.jar')  //本地依赖root下lib目录下的mysql.jar和log4j.jar
+    //本地依赖：通过fileTree
+    implementation fileTree('dir':'lib', includes: ['*.jar'], excludes: ['lib/log4j.jar'])  //依赖lib目录下的.jar结尾文件，排除log4j.jar
+    //直接依赖maven: 依赖类型implementation，依赖的组名+依赖的名称+依赖的版本号，也可省略key中间用:隔开
+    implementation group: 'org.apache.karaf.log', name: 'log', version: '3.0.10'
+    //简写 implementation 'org.apache.karaf.log:log:3.0.10'
+    //项目依赖
+    implementation project(':subproject01')
 }
 
 task task1 {  //task("task1")简化，因为()和""可以省略

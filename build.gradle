@@ -5,6 +5,15 @@ plugins {
     id 'java-library'   //要使用api依赖方式必须引入java-library插件
 }
 
+//脚本插件
+apply from: "version.gradle"  //引入自定义脚本文件version.gradle
+
+task taskVersion {
+    doLast {
+        println "公司名：$company, JDK版本是 ${cfgs.compileSdkVersion}"
+    }
+}
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -43,10 +52,10 @@ dependencies {
 }
 
 //查看当前项目有哪些冲突:当gradle构建遇到依赖冲突时，就立即构建失败，即不使用默认策略：自动跟新版本
-configurations.all { Configuration configuration ->
-    //当gradle构建遇到依赖冲突时，就立即构建失败
-    configuration.resolutionStrategy.failOnVersionConflict()
-}
+//configurations.all { Configuration configuration ->
+//    //当gradle构建遇到依赖冲突时，就立即构建失败
+//    configuration.resolutionStrategy.failOnVersionConflict()
+//}
 /** 执行后会报错：
  * Conflict(s) found for the following module(s):
  *   - org.jetbrains.kotlin:kotlin-stdlib between versions 1.9.22 and 1.3.72

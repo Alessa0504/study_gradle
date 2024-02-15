@@ -14,6 +14,7 @@ dependencies {
 }
 
 task 'A' {
+    group('group one')   //给任务指定组，否则会被分在other中
     doLast {
         println("task A")
     }

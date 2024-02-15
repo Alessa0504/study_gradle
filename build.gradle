@@ -208,3 +208,22 @@ copy {
     }
     into 'build/exportTest'   //把test.java拷贝至build/exportTest目录下
 }
+
+//自定义插件 官网例子：https://docs.gradle.org/current/userguide/custom_plugins.html
+class GreetingPlugin implements Plugin<Project> {
+
+    @Override
+    void apply(Project target) {
+        target.task('hello') {  //创建任务hello
+            doLast {
+                println 'Hello from the GreetingPlugin'
+            }
+        }
+    }
+}
+//应用插件
+apply plugin: GreetingPlugin
+/**
+ * 执行任务：gradle -q hello
+ * 打印 Hello from the GreetingPlugin
+ */

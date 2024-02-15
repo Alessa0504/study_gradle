@@ -12,3 +12,67 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+task task1 {  //task("task1")简化，因为()和""可以省略
+    //任务配置:在项目的配置阶段运行
+    println "这是一个最简单的任务"
+    //任务行为:在项目的执行阶段运行
+    doFirst {   //1.在任务内部定义
+        println "task1 doFirst"
+    }
+    doLast {
+        println "task1 doLast"
+    }
+}
+
+//2.在任务外部定义
+task1.doFirst {
+    println "task1 doFirst outer"
+}
+
+task1.doLast {
+    println "task1 doLast outer"
+}
+
+/**
+ * 执行任务
+ * gradle clean
+ * gradle -i task1
+ */
+
+def map = new HashMap<String, Object>()
+//设置task的action，可以是一个闭包
+map.put("action", { println("task two...") })
+
+task (map, "task2") {   //对应构造函数：Task task(Map<String, ?> args, String name, Closure configureClosure);
+    //任务配置:在项目的配置阶段运行
+    println "这是一个最简单的任务"
+    //任务行为:在项目的执行阶段运行
+    doFirst {   //1.在任务内部定义
+        println "task2 doFirst"
+    }
+    doLast {
+        println "task2 doLast"
+    }
+}
+
+//2.在任务外部定义
+task2.doFirst {
+    println "task2 doFirst outer"   //First:插入队列头部
+}
+
+task2.doLast {
+    println "task2 doLast outer"   //Last:插入队列尾部
+}
+
+/**
+ * task生命周期：
+ * 1.先读取settings.gradle文件
+ * 2.Configure配置阶段：println "这是一个最简单的任务"
+ * 3.执行阶段, 按照队列插入不同任务:
+ *   task2 doFirst outer
+ *   task2 doFirst
+ *   task two...
+ *   task2 doLast
+ *   task2 doLast outer
+ */

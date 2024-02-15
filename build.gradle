@@ -134,3 +134,14 @@ fileSet.forEach( { item ->
     item.createNewFile()
 //    item.exists()
 })
+
+//文件树
+def configFileTree = fileTree('src/main')    //操作src下的main目录
+configFileTree.include("**/*.java").forEach( { item ->  //include("**/*.java")代表仅保留.java结尾的文件；exclude则是排除不符合的文件
+    println item.name
+})
+/**由于过滤了java结尾的文件，仅打印
+ * MainClass.java
+ * test.java
+ * 不会打印 testconfig.xml
+ */

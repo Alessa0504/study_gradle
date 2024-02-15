@@ -126,3 +126,11 @@ tasks.named('task0_new') { dependsOn('task2_new', 'task3_new') }
 def configFile = file('src/conf.xml')   //相对路径，也可以用绝对路径如'D:\\conf.xml'
 //file('src/conf.xml')等同于java写法 new File('src/conf.xml')
 configFile.createNewFile()   //创建文件
+
+//文件集合
+def fileCollection = files('src/text1.txt', 'src/text2.txt', 'src/text3.txt')
+def fileSet = fileCollection as Set   //转成Set，也可以转成List
+fileSet.forEach( { item ->
+    item.createNewFile()
+//    item.exists()
+})

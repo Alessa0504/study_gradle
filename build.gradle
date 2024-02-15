@@ -31,7 +31,27 @@ dependencies {
     //项目依赖
     implementation project(':subproject01')
 //    api：依赖可传递
+
+    //依赖冲突
+    implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72') {  //org.jetbrains.kotlin:kotlin-stdlib-jdk8中也依赖了org.jetbrains.kotlin:kotlin-stdlib，版本是1.3.72小于手动引入的1.9.22，所以内部依赖的版本也会更新为1.3.73
+//        exclude group:'org.jetbrains.kotlin'   //排除依赖(没用???)
+        exclude module: 'kotlin-stdlib'
+//        transitive(true)
+    }
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.22'  //手动引入的1.9.22
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:+'  //手动引入最新版本用+，会去repositories中定义的(目前只有mavenCentral())中下载，当然有其他仓库也会遍历所有仓库找最新版本下载 --不建议
 }
+
+//查看当前项目有哪些冲突:当gradle构建遇到依赖冲突时，就立即构建失败，即不使用默认策略：自动跟新版本
+configurations.all { Configuration configuration ->
+    //当gradle构建遇到依赖冲突时，就立即构建失败
+    configuration.resolutionStrategy.failOnVersionConflict()
+}
+/** 执行后会报错：
+ * Conflict(s) found for the following module(s):
+ *   - org.jetbrains.kotlin:kotlin-stdlib between versions 1.9.22 and 1.3.72
+ */
+
 
 task task1 {  //task("task1")简化，因为()和""可以省略
     //任务配置:在项目的配置阶段运行

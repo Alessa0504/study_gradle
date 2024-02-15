@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'application'
+    id 'java-library'   //要使用api依赖方式必须引入java-library插件
 }
 
 group 'org.example'
@@ -29,6 +30,7 @@ dependencies {
     //简写 implementation 'org.apache.karaf.log:log:3.0.10'
     //项目依赖
     implementation project(':subproject01')
+//    api：依赖可传递
 }
 
 task task1 {  //task("task1")简化，因为()和""可以省略

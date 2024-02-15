@@ -145,3 +145,23 @@ configFileTree.include("**/*.java").forEach( { item ->  //include("**/*.java")�
  * test.java
  * 不会打印 testconfig.xml
  */
+
+//文件拷贝
+task copyTask(type: Copy) {   //自定义一个Copy类型的任务叫copyTask
+//    from('src/main/java/test.java')  //拷贝单个文件
+    from 'src/main/'   //拷贝目录下的所有文件
+    include('**/*.java')  //仅java结尾文件
+    rename { String fileName ->
+        fileName.replace('test', 'MyTest')   //对test.java重命名
+    }
+    into 'build/exportTest'   //把test.java拷贝至build/exportTest目录下
+}
+//或直接使用project对象的copy方法；执行build任务时会自动执行copy方法
+copy {
+    from 'src/main/'   //拷贝目录下的所有文件
+    include('**/*.java')  //仅java结尾文件
+    rename { String fileName ->
+        fileName.replace('test', 'MyTest')   //对test.java重命名
+    }
+    into 'build/exportTest'   //把test.java拷贝至build/exportTest目录下
+}

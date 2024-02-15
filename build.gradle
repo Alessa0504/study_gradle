@@ -1,9 +1,12 @@
+//内部插件DSL方式
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'application'
     id 'java-library'   //要使用api依赖方式必须引入java-library插件
 }
+//内部插件apply方式: key-plugin, value-插件id或全类名或简类名JavaPlugin(包已经默认导入)
+apply(plugin: 'java')  //可以省略()即apply plugin: 'java'
 
 //脚本插件
 apply from: "version.gradle"  //引入自定义脚本文件version.gradle

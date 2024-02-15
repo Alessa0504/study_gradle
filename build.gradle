@@ -95,3 +95,8 @@ compileTestKotlin {
  *   task2 doLast
  *   task2 doLast outer
  */
+
+//自定义删除任务(type:Delete)，删除build目录
+tasks.register('myClean', Delete) {
+    delete buildDir
+}

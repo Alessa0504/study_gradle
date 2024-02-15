@@ -7,7 +7,7 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
-mainClassName='app.MainClass'  //指定id 'application'后，Tasks中会出现application的run方法，点击后会执行mainClassName指定类的main方法
+mainClassName = 'app.MainClass'  //指定id 'application'后，Tasks中会出现application的run方法，点击后会执行mainClassName指定类的main方法
 /**
  * > Task :run
  * Hello World!
@@ -53,7 +53,7 @@ def map = new HashMap<String, Object>()
 //设置task的action，可以是一个闭包
 map.put("action", { println("task two...") })
 
-task (map, "task2") {   //对应构造函数：Task task(Map<String, ?> args, String name, Closure configureClosure);
+task(map, "task2") {   //对应构造函数：Task task(Map<String, ?> args, String name, Closure configureClosure);
     //任务配置:在项目的配置阶段运行
     println "这是一个最简单的任务"
     //任务行为:在项目的执行阶段运行
@@ -100,3 +100,24 @@ compileTestKotlin {
 tasks.register('myClean', Delete) {
     delete buildDir
 }
+
+4.times { counter ->
+    tasks.register("task${counter}_new") {
+        doLast {
+            println("I'm task${counter}_new")
+        }
+    }
+}
+
+
+task2_new.enabled = false   //跳过task2_new的执行
+tasks.named('task0_new') { dependsOn('task2_new', 'task3_new') }
+/** 执行task0_new：
+ * > Task :task2_new SKIPPED
+ *
+ * > Task :task3_new
+ * I'm task3_new
+ *
+ * > Task :task0_new
+ * I'm task0_new
+ */

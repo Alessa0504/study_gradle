@@ -1,9 +1,17 @@
 plugins {
     id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'application'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
+
+mainClassName='app.MainClass'  //指定id 'application'后，Tasks中会出现application的run方法，点击后会执行mainClassName指定类的main方法
+/**
+ * > Task :run
+ * Hello World!
+ */
 
 repositories {
     mavenCentral()
@@ -11,6 +19,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 task task1 {  //task("task1")简化，因为()和""可以省略
@@ -63,6 +72,16 @@ task2.doFirst {
 
 task2.doLast {
     println "task2 doLast outer"   //Last:插入队列尾部
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 /**

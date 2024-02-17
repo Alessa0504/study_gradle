@@ -12,7 +12,7 @@ repositories {
     mavenCentral()  //必须
 }
 
-//项目入口设置为src/main/groovy
+//项目入口设置为src/main/groovy --https://www.bilibili.com/video/BV1yT41137Y7?p=42&spm_id_from=pageDriver&vd_source=6c1b3915cb08c506647be7e9988933bf
 sourceSets {
     main {
         groovy {

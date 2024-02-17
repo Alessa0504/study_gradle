@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        maven { url "$rootDir/lib/release" }  //从root/lib/release目录下找到library-1.1.jar
+    }
+    dependencies {
+        classpath "com.atguigu.plugin:library:1.1"   //通过GAV坐标引入
+    }
+}
+
+
 //内部插件DSL方式
 plugins {
     id 'java'
@@ -18,7 +28,10 @@ task taskVersion {
 }
 
 //应用buildSrc目录下自定义插件
-apply plugin: 'testPluginId'   //*这里写的是插件id即resources/META-INF/gradle-plugins/testPluginId.properties文件的.properties前缀
+//apply plugin: 'testPluginId'   //*这里写的是插件id即resources/META-INF/gradle-plugins/testPluginId.properties文件的.properties前缀
+
+//外部应用也是通过插件id即.properties的前缀; ps：改了名字后记得重新发布！
+apply plugin: 'com.atguigu.plugin'
 
 group 'org.example'
 version '1.0-SNAPSHOT'

@@ -4,4 +4,4 @@ include ':subproject02'   //:是相对于当前根工程即root，默认可不�
 include 'subproject03'
 //只有被settings中include引入的project能被识别
 //include 'buildSrc'
-
+include 'buildSrcCopy'

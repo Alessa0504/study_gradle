@@ -1,0 +1,52 @@
+apply plugin: 'groovy'  //必须，因为这里使用groovy写的插件代码
+apply plugin: 'maven-publish'
+
+dependencies {
+    implementation gradleApi()  //必须 gradle sdk
+    implementation localGroovy()  //必须 groovy sdk
+}
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()  //必须
+}
+
+//项目入口设置为src/main/groovy
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+    }
+}
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {  //发布myLibrary(名字可任意取)
+            //指定GAV坐标信息
+            groupId = 'com.atguigu.plugin'
+            artifactId = 'library'
+            version = '1.1'
+            from components.java//发布jar包
+            //from components.web///引入war插件，发布war包
+        }
+    }
+    repositories {
+        //方式1.发布到本地根目录下的lib/release目录
+        maven { url "$rootDir/lib/release" }
+        //方式2.发布项目到私服中
+//        maven {
+//            name = 'myRepo' //name属性可选,表示仓库名称，url必填
+            //发布地址:可以是本地仓库或者maven私服
+            //url = layout.buildDirectory.dir("repo")
+            //url='http://my.org/repo'
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            //认证信息:用户名和密码
+//            credentials {
+//                username = 'joe'
+//                password = 'secret'
+//            }
+//        }
+    }
+}

@@ -20,5 +20,4 @@ task 'B' {
         println("task B")
     }
 }
-
 //terminal执行 gradle B
